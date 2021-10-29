@@ -1,18 +1,11 @@
-version: "2"
-volumes:
-  mongo-data:
+version: "3.7"
 services:
-  mongodb:
-    image: arm64v8/mongodb
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: root
-    #   MONGO_INITDB_ROOT_PASSWORD: example
+  office-control:
+    build: .
+    ports:
+      - 80:80
     volumes:
-      - "mongo-data:/data/db"
-    ports:
-      - 27017-27019:27017-27019
-    restart: always
-  express:
-    build: ./api
-    ports:
-      - "80:80"
+      - data_container:/data
+    restart: unless-stopped
+volumes:
+  data_container:
